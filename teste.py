@@ -2,8 +2,8 @@ import pandas as pd
 import requests
 import os
 
-cadimo_file = r"C:\Users\yasmin\Downloads\teste_faltantes\torres_2025-09-23_08-22.csv"
-devolus_file = r"C:\Users\yasmin\Downloads\teste_faltantes\todos_imoveis_ativos_2025-09-23_12-25.csv"
+cadimo_file = r"C:\Users\yasmin\Downloads\teste_faltantes\torres_2025-09-29_08-30.csv"
+devolus_file = r"C:\Users\yasmin\Downloads\teste_faltantes\imoveis_completos.csv"
 saida_faltantes = r"C:\Users\yasmin\Downloads\teste_faltantes\imoveis_faltantes.csv"
 
 API_URL = "https://api.devolusvistoria.com.br/api/imoveis"
@@ -16,7 +16,7 @@ headers = {
 cadimo = pd.read_csv(cadimo_file, dtype=str).fillna("")
 devolus = pd.read_csv(devolus_file, dtype=str).fillna("")
 
-devolus_ativos = devolus[devolus["ativo"].str.upper() == "TRUE"]
+devolus_ativos = devolus[devolus["status"].str.upper() == "ATIVO"]
 
 imoveis_faltantes = cadimo[~cadimo["codigo"].isin(devolus_ativos["codigoExterno"])]
 
